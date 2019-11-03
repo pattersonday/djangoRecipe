@@ -1,0 +1,16 @@
+<h1>Your favorite recipes from you favorite Manga!(and buffaloWildwings!)</h1>
+
+<ul>
+    {% if data %}
+    {% for foo in data %}
+        <li><a href="/recipe/{{ foo.id }}/">{{ foo.title }}</a>, by<a href="/author/{{ foo.author_id }}/">{{ foo.author }}</a></li>
+        <ul>
+            <li>{{ foo.description }}</li>
+        </ul>
+        <br>
+    {% endfor %}
+    {% else %}
+    <h1>no data</h1>
+    {% endif %}
+
+</ul>
