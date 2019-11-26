@@ -29,5 +29,8 @@ urlpatterns = [
     path('news/', views.news_add),
     path('auth_Add/', views.auth_add, name='authaddpage'),
     path('login/', views.login_view, name='login'),
-    path('logout/', views.logout_view, name='logout')
+    path('logout/', views.logout_view, name='logout'),
+    path('editrecipe/<int:id>/', views.edit_recipe_view, name='editrecipe'),
+    path('favorites/', views.all_favorites, name='allfavorites'),
+    path('favorite/<int:id>/', views.add_favorite, name='favorite')
 ]

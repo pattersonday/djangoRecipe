@@ -3,6 +3,7 @@
 <ul>
     {% if data %}
     {% for foo in data %}
+        <a href='/editrecipe/{{ foo.id }}/'>Edit</a>
         <li><a href="/recipe/{{ foo.id }}/">{{ foo.title }}</a>, by<a href="/author/{{ foo.author_id }}/">{{ foo.author }}</a></li>
         <ul>
             <li>{{ foo.description }}</li>
