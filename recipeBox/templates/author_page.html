@@ -5,7 +5,7 @@
 {% if recipes %}
 <ul>
     {% for recipe in recipes %}
-    <li><a href='/favorite/{{ recipe.id }}/'>Save for Later?</a></li>
+    <li><a href='/favorite/{{ recipe.id }}/'>Favorite</a></li>
     <li><a href="/recipe/{{ recipe.id }}/">{{ recipe.title }}</a></li>
     {% endfor %}
     {% else %}

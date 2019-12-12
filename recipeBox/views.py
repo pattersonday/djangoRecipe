@@ -123,6 +123,7 @@ def edit_recipe_view(request, id):
 
     instance = RecipeItem.objects.get(id=id)
 
+
     if request.method == 'POST':
         edit_form = NewsAdd(
             request.POST,

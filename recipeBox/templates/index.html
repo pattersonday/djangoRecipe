@@ -3,7 +3,9 @@
 <ul>
     {% if data %}
     {% for foo in data %}
-        <a href='/editrecipe/{{ foo.id }}/'>Edit</a>
+        {% if request.user.is_superuser or request.user.author == foo.author %}
+            <a href='/editrecipe/{{ foo.id }}/'>Edit</a>
+        {% endif %}
         <li><a href="/recipe/{{ foo.id }}/">{{ foo.title }}</a>, by<a href="/author/{{ foo.author_id }}/">{{ foo.author }}</a></li>
         <ul>
             <li>{{ foo.description }}</li>
