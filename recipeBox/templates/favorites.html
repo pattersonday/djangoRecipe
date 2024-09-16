@@ -1,0 +1,9 @@
+<a href='/'>Homepage</a>
+<a href='/login/'>Login</a>
+<a href='/logout/'>Logout</a>
+
+<ul style='list-style:none'>
+    {% for data in favorites %}
+        <li>Favorites: {{ data }} </li>
+    {% endfor %}
+</ul>

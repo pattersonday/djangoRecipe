@@ -1,0 +1,9 @@
+<a href='/'>Homepage</a>
+<a href='/login/'>Login</a>
+<a href='/logout/'>Logout</a>
+
+<form action='/editrecipe/{{ instance.id }}/' method='post'>
+    {% csrf_token %}
+    {{ edit_form.as_p }}
+    <input type='submit' value='Submit'>
+</form>

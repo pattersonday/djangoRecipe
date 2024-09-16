@@ -1,4 +1,9 @@
+<a href='/'>Homepage</a>
+
 <h1> {{ data.title }} </h1>
+
+<h2><a href='/favorite/{{ data.id }}/'>Favorite</a></h2>
+
 <h3> Item author: <a href="/author/{{data.author_id }}/">{{ data.author }}</a> </h3>
 <p><strong>Item time to make: </strong> {{ data.prepTime }} </p>
 <p><strong> Item description</strong>: {{ data.description }}</p>

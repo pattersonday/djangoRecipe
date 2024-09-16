@@ -1,11 +1,11 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
-from recipeBox.models import RecipeItem 
-from recipeBox.models import Author
+from recipeBox.models import Author, RecipeItem
 from recipeBox.forms import NewsAdd, AuthAdd, LoginForm
 from django.utils import timezone
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     html = "index.html"
@@ -13,12 +13,14 @@ def index(request):
 
     return render(request, html, {'data': recipes})
 
+
 def recipe_item_view(request, key_id):
     html = 'itempage.html'
-    
+
     recipe = RecipeItem.objects.get(pk=key_id)
 
     return render(request, html, {'data': recipe})
+
 
 def author_view(request, key_id):
     html = 'author_page.html'
@@ -32,15 +34,15 @@ def author_view(request, key_id):
         'recipes': items
     })
 
+
 @login_required
 def news_add(request):
-    html ='news.html'
+    html = 'news.html'
     form = None
 
     if request.method == 'POST':
-        
         form = NewsAdd(request.POST)
-        
+
         if form.is_valid():
             data = form.cleaned_data
 
@@ -53,16 +55,12 @@ def news_add(request):
                 # body=data['body'],
                 author=data['author']
             )
-            return render(request,'thanks.html')
-
-
-        
+            return render(request, 'thanks.html')
 
     else:
         # everything here is going to be a get request
         form = NewsAdd()
     return render(request, html, {'form': form})
-
 
 
 @login_required
@@ -84,9 +82,8 @@ def auth_add(request):
                 bio=data.get('bio')
             )
 
-            return render (request, 'thanks.html')
+            return render(request, 'thanks.html')
     else:
-
         form = AuthAdd()
 
     return render(request, html, {'form': form})
@@ -94,7 +91,7 @@ def auth_add(request):
 
 def login_view(request):
     html = "login_form.html"
-    
+
     if request.method == "POST":
         form = LoginForm(request.POST)
 
@@ -115,8 +112,46 @@ def login_view(request):
     return render(request, html, {'form': form})
 
 
-
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('homepage'))
+
+
+@login_required
+def edit_recipe_view(request, id):
+    html = 'editrecipe.html'
+
+    instance = RecipeItem.objects.get(id=id)
+
+
+    if request.method == 'POST':
+        edit_form = NewsAdd(
+            request.POST,
+            instance=instance
+            )
+        edit_form.save()
+
+        return HttpResponseRedirect(reverse('homepage'))
+
+    edit_form = NewsAdd(instance=instance)
+
+    return render(request, html,
+                  {'edit_form': edit_form, 'instance': instance})
+
+
+def all_favorites(request):
+    html = 'favorites.html'
+
+    favorites = request.user.author.favorites.all()
+
+    return render(request, html, {'favorites': favorites})
+
+
+def add_favorite(request, id):
+
+    favorite = RecipeItem.objects.get(id=id)
+
+    request.user.author.favorites.add(favorite)
+
+    return HttpResponseRedirect(reverse('allfavorites'))
 

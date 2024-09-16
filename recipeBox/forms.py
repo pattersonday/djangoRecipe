@@ -16,13 +16,13 @@ class NewsAdd(forms.ModelForm):
         model = models.RecipeItem
         fields = ['title', 'description', 'prepTime', 'instructions', 'author']
 
+
 class AuthAdd(forms.Form):
 
     name = forms.CharField(max_length=50)
     bio = forms.CharField(widget=forms.Textarea)
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=50)
     password = forms.CharField(widget=forms.PasswordInput)
-    
-    
